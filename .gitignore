@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm
+.pytest_cache/
+.venv/
+env/
+venv/
+node_modules/
+dist/
+.env
+data/*.sqlite3*
+data/ossdi.sqlite3*

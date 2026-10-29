@@ -1,0 +1,44 @@
+name: CI & Quality Gates
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-backend:
+    name: Backend Tests & Quality Gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run Pytest Suite
+        run: |
+          PYTHONPATH=. pytest backend/tests -v
+      - name: Self-Scan Dependency Intelligence (CLI)
+        run: |
+          python -m backend.app.cli.main scan . --format text --fail-on critical
+
+  build-frontend:
+    name: Frontend Build & Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Frontend Dependencies
+        working-directory: apps/web
+        run: npm ci
+      - name: Build Web Application
+        working-directory: apps/web
+        run: npm run build

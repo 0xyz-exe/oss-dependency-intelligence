@@ -1,0 +1,10 @@
+{
+    "name": "sample/php-app",
+    "description": "Sample PHP Composer project",
+    "type": "project",
+    "require": {
+        "php": ">=8.1",
+        "guzzlehttp/guzzle": "6.5.4",
+        "symfony/console": "^6.4"
+    }
+}

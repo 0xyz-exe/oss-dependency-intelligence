@@ -1,0 +1,4 @@
+requests==2.25.1
+fastapi>=0.110.0
+pydantic==2.6.4
+urllib3==1.26.4
